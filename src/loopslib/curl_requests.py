@@ -77,7 +77,7 @@ class CURL(object):
                 p_result = p_result.strip().splitlines()
 
                 for line in p_result:
-                    if re.match(r'^HTTP/\d{1}.\d{1} ', line) and ':' not in line:
+                    if re.match(r'^HTTP/\d{1}(?:[.]\d{1})? ', line) and ':' not in line:
                         result['Status'] = line
 
                         # Set the status code as a seperate value so we can minimise curl usage.
@@ -119,7 +119,7 @@ class CURL(object):
 
             # HTTP status codes should be the first three numbers of this header.
             if status:
-                result = re.sub(r'^HTTP/\d{1}.\d{1} ', '', status).split(' ')[0]
+                result = re.sub(r'^HTTP/\d{1}(?:[.]\d{1})? ', '', status).split(' ')[0]
 
         if result:
             try:
